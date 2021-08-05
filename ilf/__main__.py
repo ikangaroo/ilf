@@ -1,4 +1,5 @@
 import sys
+import os
 import numpy
 import torch
 import random
@@ -41,6 +42,13 @@ def get_args():
 
 def init(args):
     random.seed(args.seed)
+
+    # TODO
+    if os.path.exists(args.log_to_file):
+        os.remove(args.log_to_file)
+    f = open(args.log_to_file, "w")
+    f.close()
+
     set_logging(args.v, args.log_to_file)
     torch.manual_seed(args.seed)
     numpy.random.seed(args.seed)

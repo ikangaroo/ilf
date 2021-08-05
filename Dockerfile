@@ -56,7 +56,7 @@ RUN git apply /go/src/ilf/script/patch.geth
 
 WORKDIR /go/src/ilf
 # install python dependencies
-RUN pip3 install -r requirements.txt --no-cache-dir
+RUN pip3 install -r requirements.txt --no-cache-dir -i https://pypi.tuna.tsinghua.edu.cn/simple
 RUN go build -o execution.so -buildmode=c-shared export/execution.go
 
 ENTRYPOINT [ "/bin/bash" ]

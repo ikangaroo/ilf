@@ -1,6 +1,7 @@
 from .tx import Tx
 from ..ethereum import *
 from pprint import pprint
+from collections import OrderedDict
 
 
 class Log:
@@ -17,6 +18,20 @@ class Log:
         self.op_name = kwargs['opName']
         self.error = kwargs['error']
 
+    def to_json(self):
+        j = OrderedDict()
+        j['pc'] = self.pc
+        j['op'] = self.op
+        j['gas'] = self.gas
+        j['gas_cost'] = self.gas_cost
+        j['memory'] = self.memory
+        j['memory_size'] = self.memory_size
+        j['stack'] = self.stack
+        j['depth'] = self.depth
+        j['op_name'] = self.op_name
+        j['error'] = self.error,
+        return j
+
 
 class Logger:
 
@@ -25,17 +40,20 @@ class Logger:
         self.logs = [Log(**log) for log in kwargs['logs']] if kwargs['logs'] is not None else None
         self.bug_res = kwargs['bug_res']
         self.contract_receive_ether = kwargs['contract_receive_ether']
+        # TODO
+        self.checker_name = []
 
     # TODO
     def save(self, file):
         if file is None:
             file = "test.txt"
 
-        with open(file) as f:
-            pprint(self.tx, f)
-            pprint(self.logs, f)
+        with open(file, "a") as f:
+            pprint(self.tx.to_json(), f)
+            pprint([log.to_json() for log in self.logs], f)
             pprint(self.bug_res, f)
             pprint(self.contract_receive_ether, f)
+            pprint(self.checker_name, f)
             f.write("\n")
 
     def trace_log_memory(self, log_idx, low, high):

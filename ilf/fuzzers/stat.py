@@ -78,6 +78,8 @@ class Stat:
                     if checker.__class__.__name__ not in self.bug_res[logger.tx.contract]:
                         self.bug_res[logger.tx.contract][checker.__class__.__name__] = set()
                     self.bug_res[logger.tx.contract][checker.__class__.__name__].add(logger.tx.method)
+                    # TODO
+                    logger.checker_name.append(checker.__class__.__name__ )
 
 
     def clear_tx_count(self):
