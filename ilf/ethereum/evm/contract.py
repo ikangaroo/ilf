@@ -151,7 +151,7 @@ class Contract:
         for insn_idx in range(insn_idx, len(self.insns)):
             insn = self.insns[insn_idx]
             op = insn.op
-            
+
             insn.add_state(state.copy())
 
             with StackChecker(insn, state):
@@ -407,7 +407,7 @@ class Contract:
                     if op == BLOCKHASH:
                         state.pop_stack()
                         state.push_stack(Top())
-                    elif op in (COINBASE, TIMESTAMP, NUMBER, DIFFICULTY, GASLIMIT):
+                    elif op in (COINBASE, TIMESTAMP, NUMBER, DIFFICULTY, GASLIMIT, CHAINID, SELFBALANCE, BASEFEE):
                         state.push_stack(Top())
                     else:
                         assert False
