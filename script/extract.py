@@ -70,7 +70,7 @@ def extract_transactions():
         shutil.rmtree(build_path)
     subprocess.call('truffle compile', shell=True)
     subprocess.call('truffle deploy', shell=True)
-    extract_js_path = os.path.join(os.environ['GOPATH'], 'src', 'ilf', 'script', 'extract.js')
+    extract_js_path = os.path.join(os.path.abspath(os.path.dirname(__file__)).split('ilf')[0], 'ilf', 'script', 'extract.js')
     subprocess.call('truffle exec {}'.format(extract_js_path), shell=True)
 
 
